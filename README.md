@@ -1,10 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI Interface Prototype
 
-## Getting Started
+A frontend-only prototype of an AI chat interface with multi-model support, theme toggle, prompt templates, and interactive chat features. Built with **Next.js**, **TypeScript**, and **Tailwind CSS**.
 
-First, run the development server:
+---
 
-```bash
+## 1. Research
+
+### Platforms Reviewed
+1. **OpenAI Playground**  
+   - Real-time AI chat interface with multiple model options.  
+   - Standout features: Model selection, parameter controls, and responsive design.
+
+2. **Hugging Face Spaces**  
+   - Simplified UI for AI demos and sharing templates.  
+   - Standout features: Template saving/loading, clean minimal interface.
+
+3. **Claude UI (Anthropic)**  
+   - Multi-model support with a modern chat interface.  
+   - Standout features: Context-aware responses, collapsible chat history.
+
+4. **Microsoft Copilot Lab**  
+   - AI assistant integrated into workflows with parameter controls.  
+   - Standout features: Sidebar panel for settings, responsive layout.
+
+### Selected Features Implemented
+- **Model Selector** – Choose between GPT-4, GPT-3.5, Claude-3, Gemini, Other.  
+- **Prompt Editor** – Type messages with optional templates (mock JSON).  
+- **Parameters Panel** – Sliders for temperature and max tokens (dummy for now).  
+- **Chat/Output Area** – Displays messages with copy and JSON download options.  
+- **Theme Toggle** – Light/dark mode persisted in `localStorage`.  
+- **Responsive Layout** – Mobile through desktop breakpoints.  
+
+---
+
+## 2. Design
+
+### Figma / Mockup
+- **Figma Link:** [\[Insert your Figma or XD link here\] ](https://www.figma.com/design/waG7bBQoixgKM399QBGvI7/Untitled?node-id=0-1&m=dev&t=zSDXZjN5hqHocenl-1) 
+
+### Tailwind Mapping
+| Element                  | Tailwind Class(es) |
+|---------------------------|------------------|
+| Background (Light)       | `bg-gray-100`     |
+| Background (Dark)        | `bg-gray-900`     |
+| Primary Buttons           | `bg-blue-600 hover:bg-blue-700` |
+| Chat Bubble (User)        | `bg-blue-500 text-white` |
+| Chat Bubble (Assistant)   | `bg-gray-300 dark:bg-gray-800 text-black dark:text-white` |
+| Font (Headings)           | `Geist Sans`      |
+| Font (Code / Monospace)  | `Geist Mono`      |
+| Spacing / Padding         | `p-3`, `p-4`, `gap-3` |
+
+### Design-to-Code Translation
+- Header contains **app title, model selector, and theme toggle**.  
+- Chat messages dynamically rendered using **React state**, styled with Tailwind classes.  
+- Copy / Download buttons appear on hover for assistant messages.  
+- Input supports **Enter-to-send** with optional multi-line Shift+Enter.  
+- Dark/Light theme toggles via a button, persisting state in `localStorage`.  
+
+---
+
+## 3. Development
+
+### Key Components
+| Component          | Description |
+|-------------------|-------------|
+| `ChatArea.tsx`     | Main chat interface, message rendering, input, send button, copy/download actions, theme toggle. |
+| `ModelSelector.tsx` | Optional reusable component; manages model selection. |
+| `route.ts`         | Mock API returning AI responses for `/api/models`. |
+| `layout.tsx`       | Sets fonts, antialiasing, initial theme for `<html>` element. |
+
+### State Management
+- **React `useState`** handles messages, input, theme, and selected model.  
+- **Theme persisted** in `localStorage` and applied to `<html>` and components.  
+- Messages and selected model are dynamically updated.
+
+### Mock API
+- `/api/models` returns a mock AI response based on the last user message.  
+- Example response:
+```json
+
+## Getting Started First, run the development server:3
+bash
 npm run dev
 # or
 yarn dev
@@ -12,25 +88,15 @@ yarn dev
 pnpm dev
 # or
 bun dev
-```
+Open with your browser to see the result.
+ [http://localhost:3000]
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+  "choices": [
+    {
+      "message": {
+        "role": "assistant",
+        "content": "🤖 Mock response to: 'Hello world'"
+      }
+    }
+  ]
+}
